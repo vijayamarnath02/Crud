@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+   <style>
+  body {
+      background-color: lightgray;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    form {
+      width: 400px;
+      padding: 20px;
+      background-color: white;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    input[type="email"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    .submit-button {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .submit-button button[type="submit"] {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .submit-button button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    .back-button {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .back-button a {
+      background: none;
+      border: none;
+      color: #007bff;
+      cursor: pointer;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .back-button a:hover {
+      text-decoration: underline;
+    }
+
+    .error {
+      color: red;
+      margin-top: 5px;
+      font-size: 12px;
+    }
+
+    .alert {
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+      border-radius: 3px;
+      color: #721c24;
+      font-weight: bold;
+    } 
+
+    /* Additional styles */
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    form {
+      margin-top: 50px;
+    }
+
+    .form-group input[type="text"],
+     .form-group input[type="number"],
+    .form-group input[type="date"],
+    .form-group input[type="email"] {
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    .submit-button button[type="submit"] {
+      font-size: 16px;
+    }
+
+    .back-button a {
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <form name="form1" method="get" action="/save/create">
+    <h1><%= topicHead %></h1>
+
+    <% if(typeof message != "undefined" && message) { %>
+      <div class="alert alert-danger" role="alert">
+        <strong><%= message %></strong>
+      </div>
+    <% } %>
+
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" placeholder="Please enter the name" autocomplete="off" required>
+      <p class="error username-error" style="color: red;"></p>
+    </div>
+
+    <div class="form-group">
+      <label for="phno">Phno:</label>
+      <input type="text" name="phno" id="phno" placeholder="Please enter the phone number" autocomplete="off" required>
+      <p class="error phno-error" style="color: red;"></p>
+    </div>
+
+    <div class="form-group">
+      <label for="age">Age:</label>
+      <input type="number" name="age" id="age" placeholder="Please enter the age" autocomplete="off" required>
+      <p class="error age-error" style="color: red;"></p>
+    </div>
+
+    <div class="form-group">
+      <label for="dob">Dob:</label>
+      <input type="date" name="dob" id="dob" placeholder="Please enter the date of birth" style="width: 361px;" autocomplete="off" required>
+      <p class="error dob-error" style="color: red;"></p>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" name="email" id="email" placeholder="Please enter the email" autocomplete="off" required>
+      <p class="error email-error" style="color:red;"></p>
+    </div>
+
+    <div class="submit-button">
+      <button type="submit" value="Submit" onclick="validateForm(event)">Submit</button>
+     
+    </div>
+    <div class="back-button">
+              <a href="/" class="link-danger">Back</a>
+    </div>
+  </form>
+
+ 
+  </div>
+
+  <script>
+    function validateForm(event) {
+      event.preventDefault();
+
+      var nameInput = document.getElementById("name").value;
+      var phnoInput = document.getElementById("phno").value;
+      var ageInput = document.getElementById("age").value;
+      var dobInput = document.getElementById("dob").value;
+      var emailInput = document.getElementById("email").value;
+      const l = phnoInput.length;
+      console.log(l);
+      const la = ageInput.length;
+
+      if (nameInput == "") {
+        document.querySelector(".username-error").innerHTML = "Please enter a username";
+        document.querySelector(".username-error").style.display = "block";
+        return false;
+      } else if (!/^[A-Za-z0-9 ]+$/.test(nameInput) || !/^([^0-9]*)$/.test(nameInput)) {
+        document.querySelector(".username-error").innerHTML = "Username does not allow special characters";
+        document.querySelector(".username-error").style.display = "block";
+        return false;
+      }
+
+       if (phnoInput == "") {
+    document.querySelector(".phno-error").innerHTML = "Please enter a mobile number";
+    return false;
+  } else if (l !== 10 || /^([^0-9]*)$/.test(phnoInput)) {
+    document.querySelector(".phno-error").innerHTML = "Please enter a correct mobile number";
+    return false;
+  }
+
+      if (!ageInput || ageInput.trim() === "") {
+        document.querySelector(".age-error").innerHTML = "Please enter an age";
+        return false;
+      } else if (la > 4 || la < 0 || /^([^0-9]*)$/.test(ageInput) || ageInput == 0) {
+        document.querySelector(".age-error").innerHTML = "Please enter a correct age";
+        return false;
+      }
+
+      if (!dobInput || dobInput.trim() === "") {
+        document.querySelector(".dob-error").innerHTML = "Please enter a date of birth";
+        return false;
+      }
+
+      if (!emailInput || emailInput.trim() === "") {
+        document.querySelector(".email-error").innerHTML = "Please enter an email";
+        return false;
+      } else if (!/\S+@\S+\.\S+/.test(emailInput)) {
+        document.querySelector(".email-error").innerHTML = "Please enter a correct email format";
+        return false;
+      } else {
+        alert("Form submitted successfully!");
+        document.forms.form1.submit();
+      }
+    }
+  </script>
+</body>
+</html>
